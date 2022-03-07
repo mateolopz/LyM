@@ -1,0 +1,45 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = true;}PARSER_BEGIN(logo)package javacc_logo;
+
+public class logo{  public static void main(String args []) throws ParseException  {    logo parser = new logo(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter a Logo expression: ");      try      {        switch (logo.one_line())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        logo.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(logo)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* OPERATORS */{  < DOT : "." >| < PI : "[" >| < PD : "]" >}TOKEN :{
+ < CONSTANT : (< DIGIT >)+ >
+| < #DIGIT : [ "0"-"9"] >}int one_line() :{}{
+  instruction()
+  {    return 0;
+  }
+| "."
+  {    return 1;
+  }}
+
+void instruction() :
+{}
+{
+  
+    nombre() < CONSTANT > < DOT >
+  | "REPEAT" < CONSTANT > <PI > (instruction())+ < PD > < DOT >
+  | nonumber()
+  
+}
+
+void nombre() :
+{}
+{
+	(
+	  "FORWARD"
+	| "RIGHT"
+	| "LEFT"
+	| "RT"
+	| "LT"
+	| "FD"
+	)
+}
+
+void nonumber() :
+{}
+{
+  (
+    "PENUP"< DOT >
+  | "PENDOWN"< DOT >
+  )   
+}
