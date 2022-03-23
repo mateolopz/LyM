@@ -1,0 +1,89 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = true;}PARSER_BEGIN(Robot)package proy1;
+
+public class Robot{  public static void main(String args []) throws ParseException  {    Robot parser = new Robot(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter a Robot expression");      try      {        switch (Robot.one_line())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        Robot.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(Robot)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* COMMANDS */{  < TURN : "turn" >| < DEFVAR : "defvar" >
+| < ASSIGN : "=" >
+| < MOVE : "move" >
+| < FACE : "face" >| < PUT : "put" >| < PICK : "pick" >
+| < MOVEDIR : "move-dir" >
+| < RUNDIRS : "run-dirs" >
+| < MOVEFACE : "move-face" >}
+TOKEN : /* CONDITIONS */
+{
+  < FACING : "facing-p" >
+| < CANPUTP : "can-put-p" >
+| < CANPICKP : "can-pick-p" >
+| < CANMOVEP : "can-move-p" >
+| < NOT : "not" >
+}
+TOKEN :{
+		< WORD : (< LETTER > )+ > 
+		| < NUMERO : (< DIGIT >)+ >
+		|  < #DIGIT: ["0"-"9"] >
+		|  < #LETTER : ["a"-"z"] >
+}
+void direction():
+{}
+{
+  ":left"
+| ":right"
+| ":around"
+}
+
+void orientation():
+{}
+{
+  ":north"
+| ":south"
+| ":east"
+| ":west"
+}
+
+void ballonchips():
+{}
+{
+  ":ballons"
+| ":chips"
+}
+
+void movement():
+{}
+{
+  ":left"
+| ":right"
+| ":front"
+| ":back"
+}
+int one_line() :{}{  command() ";"  {    return 0;  }| ";"  {    return 1;  }}void command() :{}{  (    (      "("< TURN > direction()")"
+    | "("< DEFVAR ><WORD ><NUMERO >")"
+    | "("< ASSIGN ><WORD ><NUMERO >")"
+    | "("< MOVE ><NUMERO >")"
+    | "("< FACE > orientation()")"
+    | "("< PUT > ballonchips() < NUMERO >")"
+    | "("< PICK > ballonchips() < NUMERO >")"
+    | "("< MOVEDIR > <NUMERO > movement()")"
+    | "(" < RUNDIRS >(movement())*")"
+    | "("< MOVEFACE ><NUMERO > orientation()")"
+    | "(skip)"
+    | control()    )  )*}
+void control():
+{}
+{
+  
+	(
+	  "(if "condition() command() command()")"
+	| "(loop " condition() command()")"
+	| "(repeat" < NUMERO > command()")"
+	| "(defun " < WORD > "("(< WORD >)+ command()")"	)
+}
+
+void condition():
+{}
+{
+  "("< FACING > orientation()")"
+| "("< CANPUTP >ballonchips()< NUMERO >")"
+| "("< CANPICKP >ballonchips()< NUMERO >")"
+| "("< CANMOVEP >orientation()")"
+| "("< NOT >condition() ")"
+}
