@@ -1,0 +1,46 @@
+using gold.structures.automaton.*
+using gold.visualization.automaton.*
+
+procedure main(args:String[]) begin
+	Q := {"A", "B", "C"}
+	Σ := {'A', 'B', 'C', 'D', 'E', '*', '/', '#', '%', ';'}
+	q := "A"
+	F := {"B", "C"}
+	δ := ⟦⟦"A", 'A', "B"⟧, 
+	     ⟦"A", 'B', "B"⟧, 
+	     ⟦"A", 'C', "B"⟧, 
+	     ⟦"A", 'D', "B"⟧, 
+	     ⟦"A", 'E', "B"⟧, 
+	     ⟦"A", '*', "C"⟧, 
+	     ⟦"A", '/', "C"⟧, 
+	     ⟦"A", '#', "C"⟧, 
+	     ⟦"A", '%', "C"⟧, 
+	     ⟦"A", ';', "C"⟧, 
+	     ⟦"A", '*', "C"⟧, 
+	     ⟦"B", 'A', "B"⟧, 
+	     ⟦"B", 'B', "B"⟧, 
+	     ⟦"B", 'C', "B"⟧, 
+	     ⟦"B", 'D', "B"⟧, 
+	     ⟦"B", 'E', "B"⟧,
+	     ⟦"B", '*', "C"⟧, 
+	     ⟦"B", '/', "C"⟧, 
+	     ⟦"B", '#', "C"⟧, 
+	     ⟦"B", '%', "C"⟧, 
+	     ⟦"B", ';', "C"⟧, 
+	     ⟦"B", '*', "C"⟧, 
+	     ⟦"C", '*', "C"⟧, 
+	     ⟦"C", '/', "C"⟧, 
+	     ⟦"C", '#', "C"⟧, 
+	     ⟦"C", '%', "C"⟧, 
+	     ⟦"C", ';', "C"⟧, 
+	     ⟦"C", '*', "C"⟧, 
+	     ⟦"C", 'A', "B"⟧, 
+	     ⟦"C", 'B', "B"⟧, 
+	     ⟦"C", 'C', "B"⟧, 
+	     ⟦"C", 'D', "B"⟧, 
+	     ⟦"C", 'E', "B"⟧⟧
+	A : GDeterministicAutomaton := GDeterministicAutomaton(Q, Σ, q, F, δ)
+	GAutomataFrame.show(A)
+
+end
+
