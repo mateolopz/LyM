@@ -1,0 +1,97 @@
+using gold.structures.automaton.*
+using gold.visualization.automaton.*
+procedure main(args:String[]) begin
+	Q := {"inic","a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p","q","r","s","t","u","v","w","x","y","z"}
+	Σ := ('A'‥'Z')∪(0‥9)∪{'[',']'}
+ 	Γ := {'I','C','N','[',']'} //I corresponde a Instruccion, C a comando y N a número
+ 	q := "inic"
+ 	F := {"inic"}
+ 	δ := ⟦⟦"inic",'L',"a"⟧,
+ 		⟦"a",'E',"b"⟧,
+ 		⟦"b",'F',"c"⟧,
+ 		⟦"c",'T',"inic"⟧,
+ 		
+ 		⟦"inic",'F',"d"⟧,
+ 		⟦"d",'O',"e"⟧,
+ 		⟦"e",'R',"f"⟧,
+ 		⟦"f",'W',"g"⟧,
+ 		⟦"g",'A',"h"⟧,
+ 		⟦"h",'R',"i"⟧,
+ 		⟦"i",'D',"inic"⟧,
+ 		
+ 		⟦"inic",'R',"j"⟧,
+ 		⟦"j",'I',"k"⟧,
+ 		⟦"k",'G',"l"⟧,
+ 		⟦"l",'H',"m"⟧,
+ 		⟦"m",'T',"inic"⟧,
+ 		
+ 		⟦"inic",'P',"n"⟧,
+ 		⟦"n",'E',"ñ"⟧,
+ 		⟦"ñ",'N',"o"⟧,
+ 		⟦"o",'U',"p"⟧,
+ 		⟦"p",'P',"inic"⟧,
+ 		
+ 		⟦"o",'D',"q"⟧,
+ 		⟦"q",'O',"s"⟧,
+ 		⟦"s",'W',"t"⟧,
+ 		⟦"t",'N',"inic"⟧,
+ 		
+ 		⟦"inic",'F',"r"⟧,
+ 		⟦"r",'D',"inic"⟧,
+ 		
+ 		⟦"inic",'R',"u"⟧,
+ 		⟦"u",'T',"inic"⟧,
+ 		
+ 		⟦"inic",'L',"v"⟧,
+ 		⟦"v",'T',"inic"⟧,
+ 		
+ 		⟦"j",'E',"w"⟧,
+ 		⟦"w",'P',"x"⟧,
+ 		⟦"x",'E',"y"⟧,
+ 		⟦"y",'A',"z"⟧,
+ 		⟦"z",'T',"inic"⟧,
+ 		
+ 		⟦"inic",'[',"inic"⟧,
+ 		⟦"inic",']',"inic"⟧,
+ 		⟦"inic",'0',"inic"⟧,
+ 		⟦"inic",'1',"inic"⟧,
+ 		⟦"inic",'2',"inic"⟧,
+ 		⟦"inic",'3',"inic"⟧,
+ 		⟦"inic",'4',"inic"⟧,
+ 		⟦"inic",'5',"inic"⟧,
+ 		⟦"inic",'6',"inic"⟧,
+ 		⟦"inic",'7',"inic"⟧,
+ 		⟦"inic",'8',"inic"⟧,
+ 		⟦"inic",'9',"inic"⟧⟧
+ 	g:=λ
+ 	h:=⟦⟦"i",'D','I'⟧,
+ 		⟦"c",'T',"I"⟧,
+ 		⟦"m",'T',"I"⟧,
+ 		⟦"p",'P',"I"⟧,
+ 		⟦"t",'T',"I"⟧,
+ 		⟦"r",'N',"I"⟧,
+ 		⟦"u",'D',"I"⟧,
+ 		⟦"v",'T',"I"⟧,
+ 		⟦"z",'T',"C"⟧,
+ 		⟦"inic",'[',"["⟧,
+ 		⟦"inic",']',"]"⟧,
+ 		⟦"inic",'0',"N"⟧,
+ 		⟦"inic",'1',"N"⟧,
+ 		⟦"inic",'2',"N"⟧,
+ 		⟦"inic",'3',"N"⟧,
+ 		⟦"inic",'4',"N"⟧,
+ 		⟦"inic",'5',"N"⟧,
+ 		⟦"inic",'6',"N"⟧,
+ 		⟦"inic",'7',"N"⟧,
+ 		⟦"inic",'8',"N"⟧,
+ 		⟦"inic",'9',"N"⟧⟧
+	A := GDeterministicTransducer(Q, Σ, Γ, q, F, δ, g, h)
+	GAutomataFrame.show(A)
+end
+
+
+
+
+
+
+
