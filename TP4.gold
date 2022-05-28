@@ -1,0 +1,44 @@
+using gold.structures.automaton.*
+using gold.visualization.automaton.*
+
+procedure main(args:String[]) begin
+	Q:={"A","B","C","D"}
+	Σ:={'I','E','C','B','F','(',')','{','}'}
+	Γ:={'.','F'}
+	q₀:="A"
+	F:={"D"}
+	M:=GPushdownAutomaton(Q,Σ,Γ,q₀,F)
+	M.delta("A","B","").push("")
+	M.delta("B","B","I").push(".")
+	M.delta("B","B","C").push(".")
+	M.delta("B","B","B").push(".")
+	M.delta("B","B","E").push(".")
+	M.delta("B","B","(").push(".")
+	M.delta("B","B",")").push(".")
+	M.delta("B","B","{").push(".")
+	M.delta("B","B","}").push(".")
+	M.delta("B","C","F").changeTop(".","F")
+
+	
+	M.delta("C","D","I").ignore()
+	M.delta("C","D","C").ignore()
+	M.delta("C","D","B").ignore()
+	M.delta("C","D","E").ignore()
+	M.delta("C","D","(").ignore()
+	M.delta("C","D",")").ignore()
+	M.delta("C","D","{").ignore()
+	M.delta("C","D","}").ignore()
+	
+	M.delta("D","D","").pop(".")
+	M.delta("D","D","").pop("F")
+	M.delta("D","D","I").ignore()
+	M.delta("D","D","C").ignore()
+	M.delta("D","D","B").ignore()
+	M.delta("D","C","F").ignore()
+	M.delta("D","D","E").ignore()
+	M.delta("D","D","(").ignore()
+	M.delta("D","D",")").ignore()
+	M.delta("D","D","{").ignore()
+	M.delta("D","D","}").ignore()
+	GAutomataFrame.show(M)
+end
